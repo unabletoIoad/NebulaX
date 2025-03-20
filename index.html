@@ -1,126 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nebula X</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-    .gradient-bg {
-      background: linear-gradient(135deg, #2E026D 0%, #15162c 50%, #0a0a23 100%);
-    }
-    .glass-effect {
-      background: rgba(40, 40, 40, 0.25);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-    .particle {
-      position: absolute;
-      background: radial-gradient(circle, #BB86FC 20%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-  </style>
-</head>
-<body class="gradient-bg min-h-screen overflow-x-hidden">
-  <!-- Animated Background Particles -->
-  <div id="particles"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula X</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #BB86FC, -0.03em -0.04em 0 #03DAC6; }
+            25% { text-shadow: 0.05em 0.01em 0 #BB86FC, -0.03em -0.03em 0 #03DAC6; }
+            50% { text-shadow: -0.05em 0 0 #BB86FC, 0.025em 0.035em 0 #03DAC6; }
+            75% { text-shadow: -0.05em 0 0 #BB86FC, 0.05em -0.03em 0 #03DAC6; }
+            100% { text-shadow: 0.05em 0 0 #BB86FC, -0.03em -0.04em 0 #03DAC6; }
+        }
 
-  <div class="container mx-auto px-4 py-8 relative z-10">
-    <!-- Header with Floating Animation -->
-    <div class="text-center mb-16 animate-float">
-      <h1 class="text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent mb-4">
-        Nebula X
-      </h1>
-      <p class="text-purple-200 text-xl">Next Generation Development Platform</p>
+        .matrix-bg {
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==');
+        }
+
+        .terminal-text {
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 8px #BB86FC;
+        }
+
+        .hacker-border {
+            border: 1px solid #BB86FC;
+            box-shadow: 0 0 15px #BB86FC33;
+        }
+
+        .scan-line {
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 255, 0, 0.05) 51%,
+                transparent 51%
+            );
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="bg-black text-green-400 matrix-bg scan-line">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 terminal-text animate-glitch" style="animation: glitch 2s infinite">
+                > Nebula_X.exe
+            </h1>
+            <p class="text-purple-400 opacity-80">// Secure System Interface v1.4.2</p>
+        </header>
+
+        <!-- Video Tutorial -->
+        <section class="hacker-border rounded-lg mb-12 p-2 bg-black/50">
+            <h2 class="text-2xl text-purple-400 mb-4 terminal-text">[ Video Protocol ]</h2>
+            <div class="relative" style="padding-bottom: 56.25%">
+                <iframe 
+                    class="absolute w-full h-full"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    frameborder="0"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </section>
+
+        <!-- Update Log -->
+        <section class="hacker-border rounded-lg mb-12 p-4 bg-black/50">
+            <h2 class="text-2xl text-purple-400 mb-4 terminal-text">[ System Logs ]</h2>
+            <div class="space-y-3">
+                <div class="flex items-center p-3 bg-black/30 hover:bg-purple-900/20 transition-all">
+                    <div class="w-2 h-2 bg-purple-400 mr-3 animate-pulse"></div>
+                    <span class="text-green-400">v1.4.2</span>
+                    <span class="mx-2 text-purple-400">-</span>
+                    <span>Added quantum encryption module</span>
+                </div>
+                <!-- Add more log entries here -->
+            </div>
+        </section>
+
+        <!-- Interactive Section -->
+        <section class="hacker-border rounded-lg p-4 bg-black/50">
+            <h2 class="text-2xl text-purple-400 mb-4 terminal-text">[ Console Interface ]</h2>
+            <div class="flex flex-col md:flex-row gap-4">
+                <input 
+                    type="text" 
+                    value="HelloWorld" 
+                    readonly
+                    class="flex-1 p-3 bg-black/50 border border-purple-400 text-green-400 terminal-text caret-purple-400 focus:outline-none focus:border-purple-300"
+                >
+                <button 
+                    onclick="copyText()"
+                    class="p-3 bg-purple-600 hover:bg-purple-500 text-white terminal-text border border-purple-400 hover:border-purple-300 transition-all"
+                >
+                    📋 Kopier
+                </button>
+                <button 
+                    onclick="console.log('Hello World')"
+                    class="p-3 bg-green-600/50 hover:bg-green-500/30 text-green-400 terminal-text border border-green-400 hover:border-green-300 transition-all"
+                >
+                    🕹️ Prøv Nebula X
+                </button>
+            </div>
+        </section>
     </div>
 
-    <!-- Video Section with Hover Effect -->
-    <section class="glass-effect rounded-2xl p-6 mb-12 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
-      <h2 class="text-3xl font-semibold text-purple-300 mb-6">🌟 Video Tutorial</h2>
-      <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden border-2 border-purple-500/30">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </section>
+    <script>
+        function copyText() {
+            const text = 'HelloWorld';
+            navigator.clipboard.writeText(text);
+            
+            // Add visual feedback
+            const btn = event.currentTarget;
+            btn.classList.add('bg-purple-400');
+            setTimeout(() => btn.classList.remove('bg-purple-400'), 100);
+        }
 
-    <!-- Update Log with Timeline Effect -->
-    <section class="glass-effect rounded-2xl p-6 mb-12 transform transition-all duration-300 hover:scale-[1.02]">
-      <h2 class="text-3xl font-semibold text-purple-300 mb-6">📜 Update Log</h2>
-      <div class="space-y-6 relative pl-8 border-l-2 border-purple-500/30">
-        <div class="relative group">
-          <div class="absolute w-4 h-4 bg-purple-500 rounded-full -left-[25px] top-4 ring-4 ring-purple-500/30 transition-transform group-hover:scale-125"></div>
-          <div class="p-6 rounded-xl bg-gradient-to-br from-purple-900/50 to-pink-900/30 transition-all duration-300 group-hover:translate-x-4">
-            <h3 class="text-xl font-medium text-purple-300">v1.1.0 - Cosmic Update</h3>
-            <p class="text-purple-100 mt-2">Added quantum processing module and nebula visualization</p>
-          </div>
-        </div>
-        <!-- Add more log items here -->
-      </div>
-    </section>
+        // Add matrix rain effect
+        function createMatrixEffect() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+            const container = document.body;
+            
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.className = 'absolute text-green-400/20 terminal-text';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+                element.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+                container.appendChild(element);
+                
+                setTimeout(() => element.remove(), 5000);
+            }, 100);
+        }
 
-    <!-- Interactive Section with Glow Effect -->
-    <section class="glass-effect rounded-2xl p-6 mb-12">
-      <h2 class="text-3xl font-semibold text-purple-300 mb-6">⚡ Interactive Tools</h2>
-      <div class="flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6">
-        <div class="relative flex-1 group">
-          <input 
-            type="text" 
-            value="HelloWorld" 
-            readonly
-            class="w-full p-4 bg-purple-900/30 rounded-lg border-2 border-purple-500/30 focus:outline-none focus:border-purple-400 text-purple-100 transition-all duration-300 group-hover:shadow-glow">
-        </div>
-        <button 
-          onclick="copyText()"
-          class="px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-glow">
-          📋 Copy Code
-        </button>
-        <button 
-          onclick="console.log('Hello World')"
-          class="px-8 py-4 bg-pink-600 hover:bg-pink-500 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-glow">
-          🖨️ Print to Console
-        </button>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // Particle Animation
-    function createParticles() {
-      const container = document.getElementById('particles');
-      for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.width = Math.random() * 5 + 2 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        container.appendChild(particle);
-      }
-    }
-    createParticles();
-
-    // Copy Function with Ripple Effect
-    function copyText() {
-      navigator.clipboard.writeText('HelloWorld');
-      const btn = event.target;
-      btn.classList.add('animate-pulse');
-      setTimeout(() => btn.classList.remove('animate-pulse'), 300);
-    }
-
-    // Floating Animation
-    document.querySelectorAll('.animate-float').forEach(el => {
-      el.style.animation = 'float 6s ease-in-out infinite';
-    });
-  </script>
+        createMatrixEffect();
+    </script>
 </body>
 </html>
