@@ -1,12 +1,15 @@
-// Copy Text Button
-document.getElementById('copyButton').addEventListener('click', () => {
-  const textbox = document.getElementById('textbox');
-  textbox.select();
-  document.execCommand('copy');
-  alert('Text copied to clipboard!');
+// server.js
+const express = require('express');
+const path = require('path');
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Print to Console Button
-document.getElementById('consoleButton').addEventListener('click', () => {
-  console.log('Hello World');
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
