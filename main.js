@@ -1,7 +1,7 @@
 (() => {
     const style = document.createElement('style');
     style.textContent = `
-        .campus-ui {
+        .nebula-x {
             position: fixed;
             top: 20px;
             left: 20px;
@@ -18,7 +18,7 @@
             cursor: move;
         }
         
-        .campus-ui.visible {
+        .nebula-x.visible {
             transform: scale(1);
             opacity: 1;
         }
@@ -195,12 +195,12 @@
     document.head.appendChild(style);
 
     const ui = document.createElement('div');
-    ui.className = 'campus-ui';
+    ui.className = 'nebula-x';
     
     ui.innerHTML = `
         <div class="header">
             <img class="title-icon" src="https://i.ibb.co/5WPL4trn/nebx.png" alt="Title Icon">
-            <h2 class="title-text" style="margin: 0;">NebulaX</h2>
+            <h2 class="title-text" style="margin: 0;">Nebula X</h2>
             <button class="close-btn">✕</button>
         </div>
         <div class="tabs" id="tabs-container"></div>
@@ -212,11 +212,11 @@
             name: 'Home', 
             icon: 'https://i.ibb.co/d1nY4Pf/icons8-home-100.png', 
             content: `
-                <img class="home-icon" src="https://i.ibb.co/d1nY4Pf/icons8-home-100.png" alt="Home Icon">
+                <img class="home-icon" src="https://i.ibb.co/5WPL4trn/nebx.png" alt="Home Icon">
                 <div class="home-textbox" readonly>
-                    -- Nebula X | v1.0.0<br>
-                    Takk at du bruker Nebula X! :)<br>
-                    Vår nettside: <a href="https://nebx.vercel.app" target="_blank" style="color: #8a2be2;">https://nebx.vercel.app</a>
+                    - Nebula X | v1.0.1 -<br>
+                    Cheats for skole<br>
+                    <a href="https://nebx.vercel.app" target="_blank" style="color: #8a2be2;">https://nebx.vercel.app</a>
                 </div>
             ` 
         },
@@ -247,21 +247,40 @@
                 </div>
             ` 
         },
+
+        { 
+            name: 'AI', 
+            icon: 'https://chatgptaihub.com/wp-content/uploads/2023/06/ChatGPT-logo-with-color-Background.png', 
+            content: `
+                <div class="input-group">
+                    <input type="text" id="ai-question" placeholder="Spør AI-en...">
+                </div>
+                <div class="input-group">
+                    <textarea id="ai-answer" placeholder="AI-svar vil vises her..." readonly></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="ask-ai-btn">Spør</button>
+                    <button id="clear-ai-btn">Tøm</button>
+                    <button id="copy-ai-btn">Kopier</button>
+                </div>
+            ` 
+        },
+
         { 
             name: 'Misc', 
             icon: 'https://i.ibb.co/zWc7H8qJ/icons8-info-100.png', 
             content: `
                 <div class="info-box">
-                    <p>💻 Offisiell lenke: nebx.vercel.app</p>
+                    <p>Nebula X - Cheats for skole</p>
                 </div>
                 <div class="info-box">
-                    <p>🕹️ Oppdaterings Versjon - 1.0.0</p>
+                    <p>Oppdaterings Versjon - 1.0.1</p>
                 </div>
                 <div class="info-box">
-                    <p>🔘 Hurtigtast: Right Ctrl - skjul/vis</p>
+                    <p>Hurtigtast: Right Ctrl - skjul/vis</p>
                 </div>
                 <div class="info-box">
-                    <p>💯 Funker på Chromebook & PC</p>
+                    <p>Funker på Chromebook & PC</p>
                 </div>
             ` 
         }
@@ -292,6 +311,68 @@
             if (textarea) textarea.value = formsContent;
         } else {
             contentArea.innerHTML = tabs[index].content;
+        }
+
+        if (index === 3) {
+            let isProcessing = false;
+            
+            document.getElementById('ask-ai-btn').addEventListener('click', async () => {
+                if (isProcessing) return;
+                
+                const question = document.getElementById('ai-question').value;
+                const answerBox = document.getElementById('ai-answer');
+                const btn = document.getElementById('ask-ai-btn');
+                
+                answerBox.value = "Thinking...";
+                btn.disabled = true;
+                isProcessing = true;
+        
+                try {
+                    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDVBbw6fu6dLB-TQwNJPIfW2Rk0sadKzuI", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: `Answer concisely and accurately: ${question}`
+                                }]
+                            }]
+                        }),
+                    });
+        
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.error?.message || "API error");
+                    }
+        
+                    answerBox.value = data.candidates?.[0]?.content?.parts?.[0]?.text 
+                        || "No response generated";
+                        
+                } catch (error) {
+                    console.error(error);
+                    answerBox.value = error.message.includes("429") 
+                        ? "Too many requests. Wait a minute and try again." 
+                        : "Error: " + error.message;
+                } finally {
+                    btn.disabled = false;
+                    isProcessing = false;
+                }
+            });
+        
+            document.getElementById('clear-ai-btn').addEventListener('click', () => {
+                document.getElementById('ai-question').value = '';
+                document.getElementById('ai-answer').value = '';
+            });
+
+            document.getElementById('copy-ai-btn').addEventListener('click', () => {
+                const answer = document.getElementById('ai-answer').value;
+                if (answer) {
+                    navigator.clipboard.writeText(answer).catch(() => {});
+                }
+            });
         }
 
         if (index === 0) {
