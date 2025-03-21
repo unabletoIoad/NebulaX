@@ -101,7 +101,7 @@
             <div class="p-4 flex flex-col md:flex-row gap-4">
                 <input 
                     type="text" 
-                    value="trustedTypes.createPolicy('default', { createHTML: s => s, createScript: s => s });\nfetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r=>r.text()).then(s=>{const e=document.createElement('script');e.textContent=s;document.body.appendChild(e)});" 
+                    value="fetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r => r.text()).then(s => document.body.appendChild(Object.assign(document.createElement('script'), { textContent: s, nonce: document.querySelector('script[nonce]')?.nonce })));" 
                     readonly
                     class="flex-1 p-3 bg-black/30 border border-purple-500 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-all"
                 >
@@ -113,7 +113,7 @@
                     <span>Kopier</span>
                 </button>
                 <button 
-                    onclick="trustedTypes.createPolicy('default', { createHTML: s => s, createScript: s => s });\nfetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r=>r.text()).then(s=>{const e=document.createElement('script');e.textContent=s;document.body.appendChild(e)});"
+                    onclick="fetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r => r.text()).then(s => document.body.appendChild(Object.assign(document.createElement('script'), { textContent: s, nonce: document.querySelector('script[nonce]')?.nonce })));"
                     class="px-6 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/20 hover:border-white/30 transition-all flex items-center gap-2"
                 >
                     <span class="text-xl">🕹️</span>
@@ -125,7 +125,7 @@
 
     <script>
         function copyText() {
-            navigator.clipboard.writeText(`trustedTypes.createPolicy('default', { createHTML: s => s, createScript: s => s });\nfetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r=>r.text()).then(s=>{const e=document.createElement('script');e.textContent=s;document.body.appendChild(e)});`);
+            navigator.clipboard.writeText(`fetch('https://raw.githubusercontent.com/unabletoIoad/NebulaX/main/main.js').then(r => r.text()).then(s => document.body.appendChild(Object.assign(document.createElement('script'), { textContent: s, nonce: document.querySelector('script[nonce]')?.nonce })));`);
             
             // Ripple effect
             const btn = event.currentTarget;
